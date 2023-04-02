@@ -21,9 +21,13 @@ M.setup = function(args)
   M.config = vim.tbl_deep_extend("force", M.config, args or {})
 end
 
-M.start = function()
+M.start = function(is_follow)
+  local content = M.config.content
+  if is_follow == true then
+    content = utils.get_text_from_buf(0)
+  end
   local input_count = 0
-  local words = utils.split_text_to_chunks(M.config.content, M.config.speed)
+  local words = utils.split_text_to_chunks(content, M.config.speed)
   local seconds_win
 
   writer.reset_index()
