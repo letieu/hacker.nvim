@@ -25,6 +25,7 @@ end
 
 M.start = function()
   words = utils.split_text_to_chunks(M.config.content, M.config.speed)
+  writer.reset_index()
 
   local buf = vim.api.nvim_create_buf(false, true)
   ui.open_win(buf)
