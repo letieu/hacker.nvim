@@ -62,7 +62,7 @@ M.start = function()
     buffer = buf,
     callback = function(_)
       on_input()
-    end
+    end,
   })
 end
 
