@@ -7,7 +7,7 @@ https://user-images.githubusercontent.com/53562817/229345368-2392e84f-f02e-48d5-
 
 ## 🪄 Features
 - Can custom fake code
-- Can fake code follow with *current file*
+- Can fake code follow with *current file* with `:HackFollow`
 - Config speed, show popup or not, time to show popup
 
 ## 📦 Installation
