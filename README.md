@@ -1,45 +1,53 @@
-# A Neovim Plugin Template
+# 🗺️ hacker.nvim
 
-![GitHub Workflow Status](https://img.shields.io/github/actions/workflow/status/ellisonleao/nvim-plugin-template/default.yml?branch=main&style=for-the-badge)
-![Lua](https://img.shields.io/badge/Made%20with%20Lua-blueviolet.svg?style=for-the-badge&logo=lua)
+Hollywood hacker experience in your neovim
 
-A template repository for Neovim plugins.
 
-## Using it
+## 📦 Installation
 
-Via `gh`:
+Install the plugin with your preferred package manager:
+
+### [packer](https://github.com/wbthomason/packer.nvim)
+
+```lua
+use {
+    "letieu/hacker.nvim",
+}
+```
+
+### [lazy.nvim](https://github.com/folke/lazy.nvim)
+
+```lua
+require("lazy").setup({
+    { 
+        "letieu/hacker.nvim"
+    }
+}
+```
+
+
+## 🪄 Options
+
+Use `setup` to override any of the default options
+
+```lua
+-- default config
+{
+  content = [[ Code want to show.... ]], -- The code snippet that show when typing
+  filetype = "lua", -- filetype of code snippet
+  speed = { -- characters insert each time, random from min -> max
+    min = 2,
+    max = 10,
+  },
+  is_popup = false, -- show random float window when typing
+  popup_after = 5,
+}
+```
+
+## 🚀 Usage
+
+`Hack` command can be used to open hacker and start hacking
 
 ```
-$ gh repo create my-plugin -p ellisonleao/nvim-plugin-template
-```
-
-Via github web page:
-
-Click on `Use this template`
-
-![](https://docs.github.com/assets/cb-36544/images/help/repository/use-this-template-button.png)
-
-## Features and structure
-
-- 100% Lua
-- Github actions to run tests and check for formatting errors (Stylua)
-- Tests created with [busted](https://olivinelabs.com/busted/) + [plenary.nvim](https://github.com/nvim-lua/plenary.nvim)
-- luarocks release support (LUAROCKS_API_KEY secret configuration required)
-
-### Plugin structure
-
-```
-.
-├── lua
-│   ├── plugin_name
-│   │   └── module.lua
-│   └── plugin_name.lua
-├── Makefile
-├── plugin
-│   └── plugin_name.lua
-├── README.md
-├── tests
-│   ├── minimal_init.lua
-│   └── plugin_name
-│       └── plugin_name_spec.lua
+:Hack
 ```
