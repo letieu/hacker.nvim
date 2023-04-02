@@ -6,17 +6,15 @@ local content_sample = require("hacker.sample")
 
 local M = {}
 
-local words = {}
-
-
-
 M.config = {
   content = content_sample,
   filetype = "lua",
   speed = {
     min = 2,
-    max = 5,
+    max = 10,
   },
+  popup_after = 5,
+  is_popup = false,
 }
 
 M.setup = function(args)
@@ -24,20 +22,43 @@ M.setup = function(args)
 end
 
 M.start = function()
-  words = utils.split_text_to_chunks(M.config.content, M.config.speed)
+  local input_count = 0
+  local words = utils.split_text_to_chunks(M.config.content, M.config.speed)
+  local seconds_win
+
   writer.reset_index()
 
   local buf = vim.api.nvim_create_buf(false, true)
-  ui.open_win(buf)
+
+  ui.open_full_screen_win(buf)
 
   vim.api.nvim_buf_set_option(buf, "filetype", M.config.filetype)
 
   autocmd({ "TextChangedI" }, {
     buffer = buf,
     callback = function(_)
+      input_count = input_count + 1
       writer.on_input(words)
+
+      if M.config.is_popup == false then
+        return
+      end
+
+      if input_count == M.config.popup_after then
+        seconds_win = ui.open_random_float_win(0)
+      end
+
+      if input_count == M.config.popup_after + 10 then
+        vim.api.nvim_win_close(seconds_win, true)
+        input_count = 0
+      end
+
     end,
   })
+end
+
+M.test = function()
+  ui.open_float_win(0)
 end
 
 return M
