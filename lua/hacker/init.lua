@@ -1,25 +1,14 @@
 local autocmd = vim.api.nvim_create_autocmd
-local module = require("hacker.module")
+local writer = require("hacker.writer")
 local ui = require("hacker.ui")
+local utils = require("hacker.utils")
 local content_sample = require("hacker.sample")
 
 local M = {}
 
 local words = {}
-local index = 1
 
 
-local on_input = function()
-  local next_word = words[index]
-  module.append_word(0, next_word)
-
-  -- if out of range, reset index to 1
-  if index == #words then
-    index = 1
-  else
-    index = index + 1
-  end
-end
 
 M.config = {
   content = content_sample,
@@ -35,7 +24,7 @@ M.setup = function(args)
 end
 
 M.start = function()
-  words = module.split_text_to_chunks(M.config.content, M.config.speed)
+  words = utils.split_text_to_chunks(M.config.content, M.config.speed)
 
   local buf = vim.api.nvim_create_buf(false, true)
   ui.open_win(buf)
@@ -45,7 +34,7 @@ M.start = function()
   autocmd({ "TextChangedI" }, {
     buffer = buf,
     callback = function(_)
-      on_input()
+      writer.on_input(words)
     end,
   })
 end
