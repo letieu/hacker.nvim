@@ -1,7 +1,6 @@
 # 📟 hacker.nvim
 
-Hollywood hacker experience in your neovim
-
+Hollywood hacker experience in your neovim, like [hacker typer](https://hackertyper.net/)
 
 
 https://user-images.githubusercontent.com/53562817/229345368-2392e84f-f02e-48d5-91dc-ad4116819320.mp4
