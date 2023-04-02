@@ -35,8 +35,14 @@ M.split_text_to_words = function(content)
 end
 
 M.append_word = function(bufnr, word)
-  -- TODO: if word is newline, just append a newline
   local pos = get_insert_position(bufnr)
+
+  -- TODO: if word is newline, just append a newline
+  if word == "\n" then
+    vim.api.nvim_buf_set_lines(bufnr, pos.s_row + 1, pos.s_row + 1, false, { "--" })
+    vim.api.nvim_win_set_cursor(0, { pos.s_row + 2, 0 })
+    return
+  end
 
   -- append a new text after the cursor
   vim.api.nvim_buf_set_text(bufnr, pos.s_row, pos.s_col, pos.e_row, pos.e_col, { word })
