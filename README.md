@@ -1,6 +1,11 @@
-# 🗺️ hacker.nvim
+# 📟 hacker.nvim
 
-Hollywood hacker experience in your neovim
+Hollywood hacker experience in your neovim, like [hacker typer](https://hackertyper.net/)
+
+
+https://user-images.githubusercontent.com/53562817/229345368-2392e84f-f02e-48d5-91dc-ad4116819320.mp4
+
+
 
 
 ## 📦 Installation
@@ -32,7 +37,7 @@ Use `setup` to override any of the default options
 
 ```lua
 -- default config
-{
+require("hacker").setup {
   content = [[ Code want to show.... ]], -- The code snippet that show when typing
   filetype = "lua", -- filetype of code snippet
   speed = { -- characters insert each time, random from min -> max
