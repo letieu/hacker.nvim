@@ -7,7 +7,7 @@ https://user-images.githubusercontent.com/53562817/229345368-2392e84f-f02e-48d5-
 
 ## 🪄 Features
 - Can custom fake code
-- Can fake code follow with opened buffer
+- Can fake code follow with *current file*
 - Config speed, show popup or not, time to show popup
 
 ## 📦 Installation
@@ -59,7 +59,7 @@ require("hacker").setup {
 :Hack
 ```
 
-`HackFollow` command can be used to create fakecode like current buffer
+`HackFollow` command can be used to use current file as fake code
 ```
 :HackFollow
 ```
