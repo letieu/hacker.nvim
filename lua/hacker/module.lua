@@ -1,46 +1,83 @@
 -- module represents a lua module for the plugin
 local M = {}
 
+local split_str = function(inputstr, sep)
+  if sep == nil then
+    sep = "%s"
+  end
+  local t = {}
+  for str in string.gmatch(inputstr, "([^" .. sep .. "]+)") do
+    table.insert(t, str)
+  end
+  return t
+end
+
 local get_insert_position = function(bufnr)
   local pos = {}
 
   local cursor = vim.api.nvim_win_get_cursor(0)
 
-  -- if cursor is at the beginning of the line, mean user hit enter
-  -- need to disable enter key, so just append the text to the end of the line
-  if cursor[2] == 0 and cursor[1] > 1 then
-    local prev_line = vim.api.nvim_buf_get_lines(bufnr, cursor[1] - 2, cursor[1] - 1, false)[1]
-
-    pos.s_row = cursor[1] - 2
-    pos.s_col = prev_line:len()
-    pos.e_row = pos.s_row + 1
-    pos.e_col = 0
-  else
-    pos.s_row = cursor[1] - 1
-    pos.s_col = cursor[2] - 1
-    pos.e_row = pos.s_row
-    pos.e_col = pos.s_col + 1
-  end
+  pos.s_row = cursor[1] - 1
+  pos.s_col = cursor[2] - 1
+  pos.e_row = pos.s_row
+  pos.e_col = pos.s_col + 1
 
   return pos
 end
 
--- TODO: Improve this function
-M.split_text_to_words = function(content)
-  local words = {}
-  for word in content:gmatch("%S+") do
-    table.insert(words, word)
+local split_text_by_newline = function(text)
+  local chunks = {}
+  if text:sub(1, 1) == "\n" then
+    table.insert(chunks, "\n")
   end
-  return words
+
+  local smaller_chunks = split_str(text, "\n")
+
+  for j, smaller_chunk in ipairs(smaller_chunks) do
+    if j ~= 1 then
+      table.insert(chunks, "\n")
+    end
+    table.insert(chunks, smaller_chunk)
+  end
+
+  if text:sub(-1, -1) == "\n" then
+    table.insert(chunks, "\n")
+  end
+
+  return chunks
+end
+
+M.split_text_to_chunks = function(content)
+  local chunks = {}
+  local i = 1
+  while i <= content:len() do
+    local chunk_length = math.random(2, 5)
+    local chunk = content:sub(i, i + chunk_length - 1)
+
+    if chunk:find("\n") then
+      local split_chunks = split_text_by_newline(chunk)
+      for _, split_chunk in ipairs(split_chunks) do
+        table.insert(chunks, split_chunk)
+      end
+    else
+      table.insert(chunks, chunk)
+    end
+
+    i = i + chunk_length
+  end
+  return chunks
 end
 
 M.append_word = function(bufnr, word)
   local pos = get_insert_position(bufnr)
 
-  -- TODO: if word is newline, just append a newline
   if word == "\n" then
-    vim.api.nvim_buf_set_lines(bufnr, pos.s_row + 1, pos.s_row + 1, false, { "--" })
+    -- remove the newest char inputve the newest char input
+    vim.api.nvim_buf_set_text(bufnr, pos.s_row, pos.s_col, pos.e_row, pos.e_col, { "" })
+
+    vim.api.nvim_buf_set_lines(bufnr, pos.s_row + 1, pos.s_row + 1, false, { "" })
     vim.api.nvim_win_set_cursor(0, { pos.s_row + 2, 0 })
+
     return
   end
 

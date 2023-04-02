@@ -7,14 +7,40 @@ local words = {}
 local index = 1
 
 local content_sample = [[
-  function! s:hello()
-    echo 'Hello!'
-  endfunction
+M.split_text_to_words = function(content)
+  local words = {}
+  local i = 1
 
-  command! -nargs=0 Hack call s:hello()
-
-  console.log('ok')
---
+  while i <= content:len() do
+    local chunk_length = math.random(2, 5)
+    local word = content:sub(i, i + chunk_length - 1)
+    if word:find("\n") then
+      local split_words = {}
+      local split_word = ""
+      for i = 1, word:len() do
+        if word:sub(i, i) == "\n" then
+          if split_word ~= "" then
+            table.insert(split_words, split_word)
+          end
+          table.insert(split_words, "\n")
+          split_word = ""
+        else
+          split_word = split_word .. word:sub(i, i)
+        end
+      end
+      if split_word ~= "" then
+        table.insert(split_words, split_word)
+      end
+      for _, split_word in ipairs(split_words) do
+        table.insert(words, split_word)
+      end
+    else
+      table.insert(words, word)
+    end
+    i = i + chunk_length
+  end
+  return words
+end
 ]]
 
 local on_input = function()
@@ -39,7 +65,8 @@ M.setup = function(args)
 end
 
 M.start = function()
-  words = module.split_text_to_words(M.config.content)
+  words = module.split_text_to_chunks(M.config.content)
+  print(vim.inspect(words))
 
   local buf = vim.api.nvim_create_buf(false, true)
 
