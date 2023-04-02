@@ -1,5 +1,6 @@
 local autocmd = vim.api.nvim_create_autocmd
 local module = require("hacker.module")
+local ui = require("hacker.ui")
 
 local M = {}
 
@@ -58,6 +59,10 @@ end
 M.config = {
   content = content_sample,
   filetype = "lua",
+  speed = {
+    min = 2,
+    max = 5,
+  },
 }
 
 M.setup = function(args)
@@ -65,24 +70,11 @@ M.setup = function(args)
 end
 
 M.start = function()
-  words = module.split_text_to_chunks(M.config.content)
-  print(vim.inspect(words))
+  words = module.split_text_to_chunks(M.config.content, M.config.speed)
 
   local buf = vim.api.nvim_create_buf(false, true)
+  ui.open_win(buf)
 
-  local win_width = vim.api.nvim_get_option("columns")
-  local win_height = vim.api.nvim_get_option("lines")
-
-  -- create a new window to display the buffer
-  vim.api.nvim_open_win(buf, true, {
-    relative = "editor",
-    width = win_width,
-    height = win_height,
-    row = 0,
-    col = 1,
-  })
-
-  -- set the filetype
   vim.api.nvim_buf_set_option(buf, "filetype", M.config.filetype)
 
   autocmd({ "TextChangedI" }, {

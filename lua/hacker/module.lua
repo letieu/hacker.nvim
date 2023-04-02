@@ -47,11 +47,11 @@ local split_text_by_newline = function(text)
   return chunks
 end
 
-M.split_text_to_chunks = function(content)
+M.split_text_to_chunks = function(content, speed)
   local chunks = {}
   local i = 1
   while i <= content:len() do
-    local chunk_length = math.random(2, 5)
+    local chunk_length = math.random(speed.min, speed.max)
     local chunk = content:sub(i, i + chunk_length - 1)
 
     if chunk:find("\n") then
