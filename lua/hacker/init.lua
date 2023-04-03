@@ -25,7 +25,7 @@ M.start = function(is_follow)
   local content = M.config.content
   if is_follow == true then
     content = utils.get_text_from_buf(0)
-    if content == nil then
+    if content == nil or content == "" then
       print("No text in current buffer to follow, try :Hacker instead")
       return
     end
@@ -63,10 +63,6 @@ M.start = function(is_follow)
 
     end,
   })
-end
-
-M.test = function()
-  ui.open_float_win(0)
 end
 
 return M
