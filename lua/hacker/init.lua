@@ -23,12 +23,16 @@ end
 
 M.start = function(is_follow)
   local content = M.config.content
+  local filetype = M.config.filetype
+
   if is_follow == true then
     content = utils.get_text_from_buf(0)
     if content == nil or content == "" then
       print("No text in current buffer to follow, try :Hacker instead")
       return
     end
+
+    filetype = vim.api.nvim_buf_get_option(0, "filetype")
   end
   local input_count = 0
   local words = utils.split_text_to_chunks(content, M.config.speed)
@@ -40,7 +44,7 @@ M.start = function(is_follow)
 
   ui.open_full_screen_win(buf)
 
-  vim.api.nvim_buf_set_option(buf, "filetype", M.config.filetype)
+  vim.api.nvim_buf_set_option(buf, "filetype", filetype)
 
   autocmd({ "TextChangedI" }, {
     buffer = buf,
