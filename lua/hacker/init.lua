@@ -25,6 +25,10 @@ M.start = function(is_follow)
   local content = M.config.content
   if is_follow == true then
     content = utils.get_text_from_buf(0)
+    if content == nil then
+      print("No text in current buffer to follow, try :Hacker instead")
+      return
+    end
   end
   local input_count = 0
   local words = utils.split_text_to_chunks(content, M.config.speed)
