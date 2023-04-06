@@ -32,6 +32,19 @@ require("lazy").setup({
 }
 ```
 
+## 🚀 Usage
+
+`Hack` command can be used to open hacker and start hacking
+
+```
+:Hack
+```
+
+`HackFollow` command can be used to use current file as fake code
+```
+:HackFollow
+```
+
 
 ## 🪄 Options
 
@@ -51,15 +64,3 @@ require("hacker").setup {
 }
 ```
 
-## 🚀 Usage
-
-`Hack` command can be used to open hacker and start hacking
-
-```
-:Hack
-```
-
-`HackFollow` command can be used to use current file as fake code
-```
-:HackFollow
-```
