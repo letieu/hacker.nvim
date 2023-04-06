@@ -1,4 +1,4 @@
-# 📟 hacker.nvim
+# 📟 hacker.nvim for 10x developer
 
 Hollywood hacker experience in your neovim, like [hacker typer](https://hackertyper.net/)
 
