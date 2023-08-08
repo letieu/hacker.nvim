@@ -21,7 +21,7 @@ M.setup = function(args)
   M.config = vim.tbl_deep_extend("force", M.config, args or {})
 end
 
-M.start = function(is_follow)
+M.start = function(is_follow, is_auto)
   local content = M.config.content
   local filetype = M.config.filetype
 
@@ -64,9 +64,25 @@ M.start = function(is_follow)
         vim.api.nvim_win_close(seconds_win, true)
         input_count = 0
       end
-
     end,
   })
+  if is_auto == true then
+    local timer = vim.loop.new_timer()
+    local callback_duration = 100
+    vim.api.nvim_input("i")
+    timer:start(
+      callback_duration,
+      callback_duration,
+      vim.schedule_wrap(function()
+        local mode_info = vim.api.nvim_get_mode()
+        if mode_info.mode ~= "i" then
+          timer:stop()
+          return
+        end
+        vim.api.nvim_input(" ")
+      end)
+    )
+  end
 end
 
 return M
