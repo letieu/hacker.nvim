@@ -45,6 +45,10 @@ require("lazy").setup({
 :HackFollow
 ```
 
+`HackAuto` command can be used to run on auto type mode
+```
+:HackAuto
+```
 
 ## 🪄 Options
 
