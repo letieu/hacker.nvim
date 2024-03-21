@@ -3,12 +3,14 @@
 Hollywood hacker experience in your neovim, like [hacker typer](https://hackertyper.net/)
 
 
-https://user-images.githubusercontent.com/53562817/229345368-2392e84f-f02e-48d5-91dc-ad4116819320.mp4
-
 ## 🪄 Features
-- Can custom fake code
-- Can fake code follow with *current file* with `:HackFollow` or use default fake code with `:Hack`
+- Let code write itself
+- Write code with headless mode
+- Custom fake code
+- Fake code follow with *current file* with `:HackFollow` or use default fake code with `:Hack`
 - Config speed, show popup or not, time to show popup
+- Make you look like a 10x developer
+- With this plugin, ChatGPT just a baby toy
 
 ## 📦 Installation
 
@@ -45,9 +47,10 @@ require("lazy").setup({
 :HackFollow
 ```
 
-`HackAuto` command can be used to run on auto type mode
+`HackAuto`, `HackFollowAuto` command can be used to run on **auto type** mode
 ```
 :HackAuto
+:HackFollowAuto
 ```
 
 ## 🪄 Options
