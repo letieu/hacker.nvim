@@ -2,6 +2,8 @@
 
 Hollywood hacker experience in your neovim, like [hacker typer](https://hackertyper.net/)
 
+![ezgif-3-16e07cbd78](https://github.com/letieu/hacker.nvim/assets/53562817/bbf2b680-3863-47b1-9008-96b5d472769a)
+
 
 ## 🪄 Features
 - Let code write itself
