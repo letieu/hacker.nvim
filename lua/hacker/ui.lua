@@ -1,8 +1,8 @@
 local M = {}
 
 M.open_full_screen_win = function(buf)
-  local win_width = vim.api.nvim_get_option("columns")
-  local win_height = vim.api.nvim_get_option("lines")
+  local win_width = vim.o.columns
+  local win_height = vim.o.lines - vim.o.cmdheight
 
   -- create a new window to display the buffer
   return vim.api.nvim_open_win(buf, true, {
@@ -16,7 +16,7 @@ end
 
 M.open_float_win = function(buf)
   return vim.api.nvim_open_win(buf, true, {
-    relative = 'win',
+    relative = "win",
     width = 120,
     height = 10,
     border = "single",
@@ -28,8 +28,8 @@ M.open_float_win = function(buf)
 end
 
 M.open_random_float_win = function(buf)
-  local win_width = vim.api.nvim_get_option("columns")
-  local win_height = vim.api.nvim_get_option("lines")
+  local win_width = vim.o.columns
+  local win_height = vim.o.lines - vim.o.cmdheight
 
   local width = math.random(20, 100)
   local height = math.random(5, 20)
@@ -37,7 +37,7 @@ M.open_random_float_win = function(buf)
   local col = math.random(0, win_width - width)
 
   return vim.api.nvim_open_win(buf, true, {
-    relative = 'win',
+    relative = "win",
     width = width,
     height = height,
     border = "single",

@@ -32,7 +32,7 @@ M.start = function(is_follow, is_auto)
       return
     end
 
-    filetype = vim.api.nvim_buf_get_option(0, "filetype")
+    filetype = vim.api.nvim_get_option_value("filetype", { buf = 0 })
   end
   local input_count = 0
   local words = utils.split_text_to_chunks(content, M.config.speed)
@@ -44,7 +44,7 @@ M.start = function(is_follow, is_auto)
 
   ui.open_full_screen_win(buf)
 
-  vim.api.nvim_buf_set_option(buf, "filetype", filetype)
+  vim.api.nvim_set_option_value("filetype", filetype, { buf = buf })
 
   autocmd({ "TextChangedI" }, {
     buffer = buf,
@@ -67,7 +67,7 @@ M.start = function(is_follow, is_auto)
     end,
   })
   if is_auto == true then
-    local timer = vim.loop.new_timer()
+    local timer = (vim.uv or vim.loop).new_timer()
     local callback_duration = 100
     vim.api.nvim_input("i")
     timer:start(
