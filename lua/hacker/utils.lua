@@ -56,7 +56,7 @@ end
 
 M.get_text_from_buf = function(buf)
   local lines = vim.api.nvim_buf_get_lines(buf, 0, -1, false)
-  return table.concat(lines, "\n")
+  return table.concat(lines, "\n") .. "\n"
 end
 
 return M
