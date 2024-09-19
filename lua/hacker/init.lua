@@ -41,10 +41,12 @@ M.start = function(is_follow, is_auto)
   writer.reset_index()
 
   local buf = vim.api.nvim_create_buf(false, true)
-
   ui.open_full_screen_win(buf)
-
   vim.api.nvim_set_option_value("filetype", filetype, { buf = buf })
+  -- if cmp is installed, disable it
+  if package.loaded["cmp"] then
+    require('cmp').setup.buffer { enabled = false }
+  end
 
   autocmd({ "TextChangedI" }, {
     buffer = buf,
